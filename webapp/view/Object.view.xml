@@ -1,0 +1,430 @@
+<mvc:View
+	controllerName="mycompany.myapp.MyWorklistApp.controller.Object"
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:semantic="sap.f.semantic"
+	xmlns:form="sap.ui.layout.form"
+	xmlns:l="sap.ui.layout">
+	<semantic:SemanticPage
+		id="page"
+		headerPinnable="false"
+		toggleHeaderOnTitleClick="false"
+		busy="{objectView>/busy}"
+		busyIndicatorDelay="{objectView>/delay}"
+	>
+		<semantic:titleHeading>
+			<Title text="{i18n>objectTitlte} {Materials>/0/ImportDocument}" />
+		</semantic:titleHeading>
+		<semantic:headerContent>
+			<ObjectAttribute
+				title="{i18n>sequencialTitle}"
+				text="{Materials>/0/SeqImportDocument}" />
+			<ObjectStatus
+				icon="{Materials>/0/StatusIcon}"
+				state="{ImportDocuments>StatusState}"
+				text="{ImportDocuments>Status}" />
+
+		</semantic:headerContent>
+		<semantic:content>
+			<VBox>
+				<MessageStrip
+					text="Próximo passo: Associar itens de pedido"
+					type="Warning"
+					showIcon="true"
+					showCloseButton="true"
+					class="sapUiMediumMarginBottom">
+				</MessageStrip>
+				<IconTabBar id="iconTabBar" expanded="{=! ${device>/system/phone}}"
+					class="sapUiNoContentPadding" select="onSelectTab">
+					<items>
+						<IconTabFilter icon="sap-icon://product" key="main" text="Mercadorias">
+							<Table
+								id="table"
+								width="auto"
+								mode="MultiSelect"
+								autoPopinMode="true"
+								items="{
+							path: 'Materials>/',
+							sorter: {
+								path: 'ImportDocument',
+								descending: false
+							}
+						}">
+								<headerToolbar>
+									<OverflowToolbar>
+										<Title
+											id="tableHeader"
+											text="Itens de Mercadoria" />
+										<ToolbarSpacer />
+										<Button id="buttonModify" text="Associar Pedido"
+											icon="sap-icon://edit" />
+										<Button id="buttonSave" text="Salvar" icon="sap-icon://save" />
+										<Button id="buttonUpdatePurchaseOrder"
+											text="Atualizar Pedido no SAP"
+											icon="sap-icon://request"
+										/>
+
+
+										<MenuButton text="Documento Material"
+											defaultAction="onDefaultAction"
+											useDefaultActionOnly="true"
+											menuPosition="RightBottom"
+										>
+											<menu>
+												<Menu itemSelected="onMenuAction">
+													<items>
+														<MenuItem id="buttonPostMaterial"
+															text="Criar Documento de Material (MIGO)"
+															icon="sap-icon://create" />
+														<MenuItem id="buttonRevertMaterial"
+															text="Estornar Documento de Material (MIGO)"
+															icon="sap-icon://undo" />
+													</items>
+												</Menu>
+											</menu>
+										</MenuButton>
+										<MenuButton text="Nota Fiscal"
+											defaultAction="onDefaultAction"
+											useDefaultActionOnly="true"
+											menuPosition="RightBottom"
+										>
+											<menu>
+												<Menu itemSelected="onMenuAction">
+													<items>
+														<MenuItem id="buttonLoadComplNFe"
+															text="Carregar Complemento NFe"
+															icon="sap-icon://upload" />
+														<MenuItem id="buttonDeleteComplNFe"
+															text="Excluir Complemento NFe"
+															icon="sap-icon://delete" />
+														<MenuItem id="buttonPostNFe"
+															text="Criar NFe"
+															icon="sap-icon://create" />
+														<MenuItem id="buttonRevertNFe"
+															text="Estornar NFe"
+															icon="sap-icon://undo" />
+														<MenuItem id="buttonSimulateNFe"
+															text="Simular NFe"
+															icon="sap-icon://simulate" />
+													</items>
+												</Menu>
+											</menu>
+										</MenuButton>
+									</OverflowToolbar>
+								</headerToolbar>
+								<columns>
+									<Column id="columnAdic" width="80px" demandPopin="true"
+										minScreenWidth="Desktop">
+										<Text
+											id="textAdic"
+											text="{i18n>textAdic}" />
+									</Column>
+									<Column id="ItemNumber" width="80px" demandPopin="true"
+										minScreenWidth="Desktop">
+										<Text
+											id="textItemNumber"
+											text="{i18n>textItemNumber}" />
+									</Column>
+									<Column id="Description" width="180px" demandPopin="true"
+										minScreenWidth="Desktop">
+										<Text
+											id="textDescription"
+											text="Descrição" />
+									</Column>
+									<Column id="Quantity" width="80px" demandPopin="true"
+										minScreenWidth="Desktop">
+										<Text
+											id="textQuantity"
+											text="{i18n>textQuantity}" />
+									</Column>
+									<Column id="Value" width="80px" demandPopin="true"
+										minScreenWidth="Desktop">
+										<Text
+											id="textValue"
+											text="{i18n>textValue}" />
+									</Column>
+									<Column id="SapQuantity" width="80px" demandPopin="true"
+										minScreenWidth="Desktop">
+										<Text
+											id="textSapQuantity"
+											text="{i18n>textSapQuantity}" />
+									</Column>
+									<Column id="SapNetPrice" width="80px" demandPopin="true"
+										minScreenWidth="Desktop">
+										<Text
+											id="textSapNetPrice"
+											text="{i18n>textSapNetPrice}" />
+									</Column>
+									<Column id="NFeNumber" width="120px" demandPopin="true"
+										minScreenWidth="Desktop">
+										<Text
+											id="textNFeNumber"
+											text="Nota Fiscal" />
+									</Column>
+									<Column id="MaterialDocument" width="130px" demandPopin="true"
+										minScreenWidth="Desktop">
+										<Text
+											id="textMaterialDocument"
+											text="Documento de Material" />
+									</Column>
+									<Column id="SapPoNumber" width="100px" demandPopin="true"
+										minScreenWidth="Desktop">
+										<Text
+											id="textSapPoNumber"
+											text="{i18n>textSapPoNumber}" />
+									</Column>
+									<Column id="SapPoItem" width="70px" demandPopin="true"
+										minScreenWidth="Desktop">
+										<Text
+											id="textSapPoItem"
+											text="{i18n>textSapPoItem}" />
+									</Column>
+									<Column id="SapMaterialNumber" width="100px" demandPopin="true"
+										minScreenWidth="Desktop">
+										<Text
+											id="textSapMaterialNumber"
+											text="{i18n>textSapMaterialNumber}" />
+									</Column>
+									<Column id="SapMaterialDescription" width="180px"
+										demandPopin="true"
+										minScreenWidth="Desktop">
+										<Text
+											id="textSapMaterialDescription"
+											text="{i18n>textSapMaterialDescription}" />
+									</Column>
+									<Column id="SapSupplier" width="85px" demandPopin="true"
+										minScreenWidth="Desktop">
+										<Text
+											id="textSapSupplier"
+											text="{i18n>textSapSupplier}" />
+									</Column>
+									<Column id="SapSupplierName" width="120px" demandPopin="true"
+										minScreenWidth="Desktop">
+										<Text
+											id="textSapSupplierName"
+											text="{i18n>textSapSupplierName}" />
+									</Column>
+								</columns>
+								<items>
+									<ColumnListItem>
+										<cells>
+											<ObjectAttribute
+												text="{Materials>Adic}" />
+											<ObjectAttribute
+												text="{Materials>ItemNumber}" />
+											<ObjectAttribute
+												text="{Materials>Description}" />
+											<ObjectAttribute
+												text="{Materials>Quantity}" />
+											<ObjectAttribute
+												text="{Materials>Value}" />
+											<ObjectAttribute
+												text="{Materials>SapQuantity}" />
+											<ObjectAttribute
+												text="{Materials>SapNetPrice}" />
+											<ObjectStatus
+												active="true"
+												text="{Materials>NFeNumber}"
+												state="Success"
+												tooltip="Autorizada"
+												icon="{ parts: [ 'Materials>NFeNumber' ], formatter: '.formatter.setNFeIcon' }" />
+											<ObjectStatus
+												active="true"
+												text="{Materials>MaterialDocument}"
+												state="Success"
+												tooltip="Criado com sucesso"
+												icon="{ parts: [ 'Materials>MaterialDocument' ], formatter: '.formatter.setMaterialDocumentIcon' }" />
+											<Link
+												text="{Materials>SapPoNumber}" />
+											<Link
+												text="{Materials>SapPoItem}" />
+											<ObjectAttribute
+												text="{Materials>SapMaterialNumber}" />
+											<ObjectAttribute
+												text="{Materials>SapMaterialDescription}" />
+											<ObjectAttribute
+												text="{Materials>SapSupplier}" />
+											<ObjectAttribute
+												text="{Materials>SapSupplierName}" />
+										</cells>
+									</ColumnListItem>
+								</items>
+							</Table>
+
+						</IconTabFilter>
+						<IconTabFilter icon="sap-icon://monitor-payments" key="miro"
+							text="Faturamento">
+							<Table
+								id="table2"
+								width="auto"
+								mode="MultiSelect"
+								noDataText="Nenhuma fatura emitida"
+								autoPopinMode="true"
+								items="{
+							path: 'ItemsFatura>/',
+							sorter: {
+								path: 'ImportDocument',
+								descending: false
+							}
+						}">
+								<headerToolbar>
+									<OverflowToolbar>
+										<Title
+											id="tableHeader2"
+											text="Itens de Fatura" />
+										<ToolbarSpacer />
+										<Button id="buttonLoadComplNFe2"
+											text="Carregar Complemento Fatura (MIRO)"
+											icon="sap-icon://upload" />
+										<Button id="buttonDeleteComplNFe2"
+											text="Excluir Complemento Fatura (MIRO)"
+											icon="sap-icon://delete" />
+										<Button id="buttonPostNFe2" text="Criar Fatura (MIRO)"
+											icon="sap-icon://create" />
+										<Button id="buttonRevertNFe2" text="Estornar Fatura (MIRO)"
+											icon="sap-icon://undo" />
+									</OverflowToolbar>
+								</headerToolbar>
+								<columns>
+									<Column id="columnInvoiceType" width="150px" demandPopin="true"
+										minScreenWidth="Desktop">
+										<Text
+											id="textInvoiceType"
+											text="Tipo de Fatura" />
+									</Column>
+									<Column id="columnInvoiceNumber" width="180px"
+										demandPopin="true"
+										minScreenWidth="Desktop">
+										<Text
+											id="textInvoiceNumber"
+											text="Fatura" />
+									</Column>
+									<Column id="columnAdic2" width="80px" demandPopin="true"
+										minScreenWidth="Desktop">
+										<Text
+											id="textAdic2"
+											text="{i18n>textAdic}" />
+									</Column>
+									<Column id="ItemNumber2" width="60px" demandPopin="true"
+										minScreenWidth="Desktop">
+										<Text
+											id="textItemNumber2"
+											text="{i18n>textItemNumber}" />
+									</Column>
+									<Column id="Description2" width="180px" demandPopin="true"
+										minScreenWidth="Desktop">
+										<Text
+											id="textDescription2"
+											text="{i18n>Description}" />
+									</Column>
+									<Column id="Quantity2" width="80px" demandPopin="true"
+										minScreenWidth="Desktop">
+										<Text
+											id="textQuantity2"
+											text="{i18n>textQuantity}" />
+									</Column>
+									<Column id="Value2" width="80px" demandPopin="true"
+										minScreenWidth="Desktop">
+										<Text
+											id="textValue2"
+											text="{i18n>textValue}" />
+									</Column>
+									<Column id="SapQuantity2" width="80px" demandPopin="true"
+										minScreenWidth="Desktop">
+										<Text
+											id="textSapQuantity2"
+											text="{i18n>textSapQuantity}" />
+									</Column>
+									<Column id="SapNetPrice2" width="100px" demandPopin="true"
+										minScreenWidth="Desktop">
+										<Text
+											id="textSapNetPrice2"
+											text="{i18n>textSapNetPrice}" />
+									</Column>
+									<Column id="SapPoNumber2" width="100px" demandPopin="true"
+										minScreenWidth="Desktop">
+										<Text
+											id="textSapPoNumber2"
+											text="{i18n>textSapPoNumber}" />
+									</Column>
+									<Column id="SapPoItem2" width="70px" demandPopin="true"
+										minScreenWidth="Desktop">
+										<Text
+											id="textSapPoItem2"
+											text="{i18n>textSapPoItem}" />
+									</Column>
+									<Column id="SapMaterialNumber2" width="100px" demandPopin="true"
+										minScreenWidth="Desktop">
+										<Text
+											id="textSapMaterialNumber2"
+											text="{i18n>textSapMaterialNumber}" />
+									</Column>
+									<Column id="SapMaterialDescription2" width="200px"
+										demandPopin="true"
+										minScreenWidth="Desktop">
+										<Text
+											id="textSapMaterialDescription2"
+											text="{i18n>textSapMaterialDescription}" />
+									</Column>
+									<Column id="SapSupplier2" width="120px" demandPopin="true"
+										minScreenWidth="Desktop">
+										<Text
+											id="textSapSupplier2"
+											text="{i18n>textSapSupplier}" />
+									</Column>
+									<Column id="SapSupplierName2" width="160px" demandPopin="true"
+										minScreenWidth="Desktop">
+										<Text
+											id="textSapSupplierName2"
+											text="{i18n>textSapSupplierName}" />
+									</Column>
+								</columns>
+								<items>
+									<ColumnListItem>
+										<cells>
+											<ObjectAttribute
+												text="{ItemsFatura>InvoiceType}" />
+											<ObjectStatus
+												active="true"
+												text="{ItemsFatura>InvoiceNumber} ({ItemsFatura>InvoiceYear})"
+												state="Success"
+												tooltip="Fatura criada com sucesso"
+												icon="{ parts: [ 'Materials>InvoiceNumber' ], formatter: '.formatter.setInvoiceIcon' }" />
+											<ObjectAttribute
+												text="{ItemsFatura>Adic}" />
+											<ObjectAttribute
+												text="{ItemsFatura>ItemNumber}" />
+											<ObjectAttribute
+												text="{ItemsFatura>Description}" />
+											<ObjectAttribute
+												text="{ItemsFatura>Quantity}" />
+											<ObjectAttribute
+												text="{ItemsFatura>Value}" />
+											<ObjectAttribute
+												text="{ItemsFatura>SapQuantity}" />
+											<ObjectAttribute
+												text="{ItemsFatura>SapNetPrice}" />
+											<Link
+												text="{ItemsFatura>SapPoNumber}" />
+											<Link
+												text="{ItemsFatura>SapPoItem}" />
+											<ObjectAttribute
+												text="{ItemsFatura>SapMaterialNumber}" />
+											<ObjectAttribute
+												text="{ItemsFatura>SapMaterialDescription}" />
+											<ObjectAttribute
+												text="{ItemsFatura>SapSupplier}" />
+											<ObjectAttribute
+												text="{ItemsFatura>SapSupplierName}" />
+										</cells>
+									</ColumnListItem>
+								</items>
+							</Table>
+						</IconTabFilter>
+					</items>
+				</IconTabBar>
+			</VBox>
+		</semantic:content>
+	</semantic:SemanticPage>
+</mvc:View>

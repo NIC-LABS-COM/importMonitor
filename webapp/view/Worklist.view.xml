@@ -1,0 +1,93 @@
+<mvc:View
+	controllerName="mycompany.myapp.MyWorklistApp.controller.Worklist"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:semantic="sap.f.semantic"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<semantic:SemanticPage
+		id="page"
+		headerPinnable="false"
+		toggleHeaderOnTitleClick="false"
+		showFooter="false">
+		<semantic:titleHeading>
+			<Title text="{i18n>worklistTitle}" />
+
+		</semantic:titleHeading>
+		<semantic:content>
+
+
+			<Table
+				id="table"
+				growing="true"
+				growingScrollToLoad="true"
+				noDataText="{worklistView>/tableNoDataText}"
+				width="auto"
+				mode="MultiSelect"
+				items="{
+							path: 'ImportDocuments>/',
+							sorter: {
+								path: 'ImportDocument',
+								descending: false
+							}
+						}">
+				<headerToolbar>
+					<OverflowToolbar>
+						<Title
+							id="tableHeader"
+							text="{worklistView>/worklistTableTitle}" />
+						<ToolbarSpacer />
+						<Button id="upload" text="Importar XML" icon="sap-icon://upload" />
+						<Button id="download" text="Baixar XML" icon="sap-icon://download" />
+						<Button id="delete" text="Eliminar DI" icon="sap-icon://delete" press="onFramePress" />
+
+					</OverflowToolbar>
+				</headerToolbar>
+				<columns>
+					<Column id="columnDocumentId" visible="false">
+						<Text
+							id="textDocumentId"
+							text="{i18n>textDocumentId}" />
+					</Column>
+					<Column
+						id="columnImportDocument"
+						demandPopin="false"
+						minScreenWidth="Tablet">
+						<Text text="{i18n>textImportDocument}" />
+					</Column>
+					<Column
+						id="columnSeqDocument"
+						hAlign="Begin"
+						demandPopin="true"
+						minScreenWidth="Tablet">
+						<Text text="{i18n>textSeqDocument}" />
+					</Column>
+					<Column
+						id="columnStatus"
+						hAlign="Begin"
+						demandPopin="true"
+						minScreenWidth="Tablet">
+						<Text text="Status" />
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem
+						type="Navigation"
+						press=".onPress">
+						<cells>
+							<ObjectIdentifier
+								title="{ImportDocuments>DocumentId}" />
+							<ObjectAttribute
+								text="{ImportDocuments>ImportDocument}" />
+							<ObjectAttribute
+								text="{ImportDocuments>SeqImportDocument}" />
+							<ObjectStatus
+								icon="{ImportDocuments>StatusIcon}"
+								state="{ImportDocuments>StatusState}"
+								text="{ImportDocuments>Status}" />
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+		</semantic:content>
+	</semantic:SemanticPage>
+</mvc:View>

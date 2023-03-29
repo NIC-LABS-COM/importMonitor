@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Monitor de Importação</title>
+    <link rel="icon" type="image/x-icon" href="./img/nic-pad-logo.png" />
+    <link rel="stylesheet" href="style.css" />
+    <script
+      id="sap-ui-bootstrap"
+      src="https://openui5.hana.ondemand.com/resources/sap-ui-core.js"
+      data-sap-ui-theme="sap_fiori_3"
+      data-sap-ui-libs="sap.m"
+      data-sap-ui-resourceRoots='{
+				"mycompany.myapp.MyWorklistApp": "./", 
+				"model": "./model/"
+			}'
+      data-sap-ui-compatVersion="edge"
+      data-sap-ui-async="true"
+      data-sap-ui-frameOptions="trusted"
+      data-sap-ui-oninit="module:sap/ui/core/ComponentSupport"
+    ></script>
+
+    <style>
+      html,
+      body {
+        height: 100%;
+      }
+    </style>
+  </head>
+
+  <body class="sapUiBody sapUiSizeCozy" id="content">
+    <div
+      data-sap-ui-component
+      data-name="mycompany.myapp.MyWorklistApp"
+      data-height="100%"
+      data-id="container"
+      data-settings='{"id" : "mycompany.myapp.MyWorklistApp"}'
+      style="height: 100%"
+    ></div>
+  </body>
+</html>

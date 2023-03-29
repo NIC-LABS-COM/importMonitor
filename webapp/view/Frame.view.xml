@@ -1,0 +1,13 @@
+<mvc:View
+    controllerName="mycompany.myapp.MyWorklistApp.controller.Frame"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:semantic="sap.f.semantic"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:l="sap.ui.layout"
+    xmlns:html="http://www.w3.org/1999/xhtml">
+    <html:iframe src="https://cart-nicpad.azurewebsites.net/" style="border:none;"
+        title="Cart
+Shopping" frameborder="0" allowfullscreen="true" height="100%" width="100%" />
+</mvc:View>
